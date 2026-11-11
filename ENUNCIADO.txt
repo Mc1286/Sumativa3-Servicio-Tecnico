@@ -1,0 +1,101 @@
+PROBLEMA DEL EQUIPO 4: COTIZACIÓN DE SERVICIO TÉCNICO
+
+Un taller de soporte informático necesita administrar su catálogo de servicios preventivos y correctivos. El encargado debe cargar los servicios, consultar el catálogo, agregar o eliminar registros y cotizar un servicio seleccionado según las horas de trabajo. No se requiere administrar clientes, órdenes de reparación ni inventario de repuestos.
+
+JERARQUÍA ENTREGADA
+ServicioTecnico: codigo (String), descripcion (String), tarifaHora (double).
+ServicioPreventivo hereda de ServicioTecnico y agrega costoInsumos (double).
+ServicioCorrectivo hereda de ServicioTecnico y agrega costoRepuesto (double).
+
+OPERACIÓN PRINCIPAL
+Contrato a completar: double calcularImporte(int horas).
+El usuario selecciona un servicio e ingresa una cantidad entera de horas entre 1 y 24. Las horas corresponden a la cotización y no se guardan en el catálogo.
+ServicioPreventivo: Importe base = tarifaHora × horas + costoInsumos. Los insumos se cobran una sola vez.
+ServicioCorrectivo: Importe base = tarifaHora × horas × 1,25 + costoRepuesto. El 25 % adicional se aplica solo a la mano de obra.
+Modalidad NORMAL: total = importe base. Modalidad BENEFICIO: descuento = importe base × 0,10; total = importe base − descuento.
+
+VALIDACIONES PARTICULARES
+tarifaHora debe ser mayor que 0; costoInsumos y costoRepuesto deben ser mayores o iguales que 0.
+
+FORMATO DEL ARCHIVO
+tipo;codigo;descripcion;tarifaHora;datoEspecifico
+La quinta columna (datoEspecifico) se interpreta según el tipo:
+PREVENTIVO: costoInsumos (double).
+CORRECTIVO: costoRepuesto (double).
+Ejemplo real del archivo:
+PREVENTIVO;SP01;Limpieza de computador;12000;3000
+
+RESULTADOS PARA COMPROBAR
+Código | Entrada | Importe NORMAL | Total BENEFICIO
+SP01 | 2 horas | 27000 | 24300
+SC01 | 2 horas | 55500 | 49950
+Los importes están expresados en pesos. Mostrar dos decimales.
+
+PREPARACIÓN DEL PROYECTO
+Copiar src/equipo4/modelo en la carpeta de fuentes del proyecto, conservando el paquete equipo4.modelo.
+Copiar la carpeta datos en la raíz del proyecto y ejecutar con esa raíz como directorio de trabajo.
+La base contiene solo el modelo de datos. No incluye main, interfaz gráfica ni aplicación ejecutable.
+Comprobación opcional de las clases base desde la carpeta del equipo, con un JDK instalado:
+javac -encoding UTF-8 -d build src/equipo4/modelo/*.java
+El equipo puede utilizar NetBeans, IntelliJ IDEA o Visual Studio Code con soporte para Java.
+
+SUMATIVA 3 - PROGRAMACIÓN AVANZADA ISF214
+Plazo de desarrollo: 20 días. Entrega del proyecto: el día anterior a la presentación.
+La fecha calendario y el horario serán informados por el docente.
+Trabajo en equipo y calificación individual sobre 7 puntos.
+
+BASE ENTREGADA
+Se proporcionan una clase padre abstracta, dos clases hijas y un archivo de 10 registros.
+Las clases contienen atributos privados, constructores y accesores. No contienen los
+cálculos, el polimorfismo operativo, la interfaz, la lectura ni la escritura de archivos.
+Los comentarios TODO orientan las tareas pendientes. No son funcionalidades resueltas.
+Pueden completar o reorganizar el código y agregar clases, manteniendo el problema,
+los datos, la relación padre-hijas y los comportamientos exigidos.
+
+TRABAJO DEL EQUIPO
+1. Crear la aplicación Java Swing y programar sus eventos.
+2. Leer datos/datos.txt al iniciar y reconstruir objetos de ambas clases hijas.
+3. Mostrar los registros en una tabla y permitir buscar o filtrar.
+4. Agregar registros de ambos tipos, con código único y validación de sus atributos.
+5. Eliminar el registro seleccionado, cargado o nuevo, previa confirmación.
+6. Completar el cálculo indicado y ejecutarlo mediante referencias del tipo padre.
+   Debe existir una colección del tipo padre con objetos de ambas clases hijas.
+7. Permitir seleccionar NORMAL o BENEFICIO. NORMAL conserva el importe base;
+   BENEFICIO reduce ese importe en 10 %. Mostrar importe base, descuento y total.
+8. Guardar el estado actual en el mismo archivo, sin duplicar registros. Al reiniciar,
+   las adiciones deben permanecer y los registros eliminados no deben reaparecer.
+9. Implementar y justificar al menos dos patrones diferentes entre sí, elegidos
+   de los trabajados en clase. No se prescribe cuáles. Deben usarse realmente.
+10. Separar la interfaz, la lógica del problema y las operaciones con archivos.
+
+ARCHIVO Y VALIDACIONES
+El archivo tiene exactamente 10 líneas iniciales, sin cabecera: 5 registros por tipo.
+Cada línea tiene 5 campos separados por punto y coma (;), codificados en UTF-8.
+Los números se guardan sin separador de miles, con punto para decimales.
+No se permiten campos vacíos, punto y coma ni saltos de línea dentro de un campo.
+El código es único al quitar espacios extremos y comparar sin distinguir mayúsculas.
+El archivo puede contener otra cantidad de registros después de agregar o eliminar.
+Si una línea es inválida o tiene código repetido, informar su número y continuar con
+las válidas; ante duplicados conservar el primer registro válido. Ignorar líneas vacías.
+Si falta el archivo, avisar y permitir trabajar con una colección vacía. Un error de
+lectura/escritura debe informarse sin cerrar la aplicación ni anunciar un guardado exitoso.
+Rechazar valores fuera de rango, texto en campos numéricos y valores no finitos.
+El tipo desconocido y el número incorrecto de campos son errores de formato.
+La modalidad y las cantidades temporales del cálculo no se guardan en el catálogo.
+Todas las reglas y tarifas son didácticas. Mostrar dinero con dos decimales y no
+redondear los pasos intermedios. No se agregan impuestos ni cargos no indicados.
+
+ENTREGA Y DEFENSA
+Entregar proyecto completo y archivos de datos. No se exige PPT ni diagrama de clases.
+Demostrar carga, adición de ambos tipos, búsqueda o filtro, eliminación de un registro
+cargado y uno nuevo, cálculo, ambos patrones, guardado y reapertura.
+Después de presentar, cada integrante debe explicar y defender la aplicación completa,
+incluidas las partes de sus compañeros. El docente puede pedir una modificación pequeña.
+Cada criterio se valora según la implementación y el dominio individual; el aspecto
+de menor logro limita el puntaje. Un criterio no implementado o no defendido vale 0.
+La aplicación correcta no garantiza aprobar: quien no pueda defender el trabajo
+presentado reprobará. La falta de dominio parcial afecta los puntos de esa parte.
+La defensa se aplica a los 7 criterios completos, sin un porcentaje adicional.
+El código entregado por el docente no acredita por sí solo el logro del criterio.
+La rúbrica completa está en el documento Word general.
+
