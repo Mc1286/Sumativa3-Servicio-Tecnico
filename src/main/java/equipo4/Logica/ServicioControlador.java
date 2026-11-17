@@ -7,6 +7,7 @@ package equipo4.Logica;
 import equipo4.DAO.PatronDaoClass;
 import equipo4.factory.ServicioFactory;
 import equipo4.modelo.ServicioTecnico;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +64,17 @@ public class ServicioControlador {
         ServicioTecnico nuevo = ServicioFactory.crearServicio(tipo, codigo.trim(), desc.trim(), tarifa, datoEsp);
         if (nuevo != null) {
             listaServicios.add(nuevo);
+            sincronizarArchivo(); // Patrón DAO: Persistencia automática
         }
     }
 
-    public void eliminarServicio(String codigo) {
+    public void eliminarServicio(String codigo) throws IOException {
         listaServicios.removeIf(s -> s.getCodigo().equalsIgnoreCase(codigo));
+        sincronizarArchivo(); // Patrón DAO: Persistencia automática
+    }
+
+    private void sincronizarArchivo() throws IOException {
+        dao.guardarServicios(listaServicios);
     }
 
     public List<ServicioTecnico> filtrar(String criterio) {
