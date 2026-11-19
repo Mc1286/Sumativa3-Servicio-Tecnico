@@ -1,0 +1,10 @@
+PREVENTIVO;SP01;Limpieza de computador;12000;3000
+PREVENTIVO;SP02;Mantención de notebook;15000;4500
+PREVENTIVO;SP03;Revisión de impresora;11000;2000
+PREVENTIVO;SP04;Limpieza de periféricos;9000;1500
+PREVENTIVO;SP05;Mantención de estación;16000;5000
+CORRECTIVO;SC01;Cambio de ventilador;15000;18000
+CORRECTIVO;SC02;Cambio de teclado;14000;22000
+CORRECTIVO;SC03;Cambio de disco;18000;45000
+CORRECTIVO;SC04;Reparación de conexión;13000;8000
+CORRECTIVO;SC05;Cambio de memoria;17000;32000
